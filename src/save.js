@@ -18,8 +18,15 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
  */
 export default function save({ attributes }) {
 	console.log("From Save", attributes);
-    const { columnCount, columnGap } = attributes;	//destructuring custom attributes
-	const columnStyles = { columnCount: columnCount, columnGap: columnGap };
+    const { columnCount, columnGap, columnWidth, columnRuleColor, columnRuleWidth, columnRuleStyle } = attributes;	//destructuring custom attributes
+	const columnStyles = { 
+        columnCount: columnCount,
+        columnGap: columnGap,
+        columnWidth: columnWidth,
+        columnRuleColor: columnRuleColor,
+        columnRuleWidth: columnRuleWidth,
+        columnRuleStyle: columnRuleStyle
+    };
 	return (
 		<RichText.Content
             { ...useBlockProps.save( { style: columnStyles } ) }

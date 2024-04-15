@@ -11,8 +11,9 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, RichText, InspectorControls } from "@wordpress/block-editor";
-import { TextControl, RangeControl, PanelBody } from "@wordpress/components";
+import { useBlockProps, RichText, InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
+import { TextControl, RangeControl, PanelBody, SelectControl } from "@wordpress/components";
+import NumberControl from './components/number-control';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -32,42 +33,92 @@ import './editor.scss';
  */
 export default function Edit( { attributes, setAttributes } ) {
 	console.log("From Edit", attributes);
-	const { columnCount, columnGap } = attributes;	//destructuring custom attributes
-	const columnStyles = { columnCount: columnCount, columnGap: columnGap };  //passing custom attributes with useBlockProps hook
-	const onChangeContent = ( val ) => {
-		setAttributes( { content: val } );
-	};
-	const onChangeColumnCount = ( value ) => {
-		setAttributes( { columnCount: value } );
-	};
-	const onChangeColumnGap = ( value ) => {
-		if (parseInt(value.split('')[0]) >= 0 && parseInt(value.split('')[0]) <= 3){
-			const columnGapValue = `${parseInt(value)}rem`
-			setAttributes( { columnGap: columnGapValue } );
-		}
-	};
+	const { columnCount, columnGap, columnWidth, columnRuleWidth, columnRuleStyle, columnRuleColor } = attributes;	//destructuring custom attributes
+	const columnStyles = { 
+		columnCount: columnCount,
+		columnGap: columnGap,
+		columnWidth: columnWidth,
+		columnRuleWidth: columnRuleWidth,
+		columnRuleStyle: columnRuleStyle,
+		columnRuleColor: columnRuleColor
+ 	};  //passing custom attributes with useBlockProps hook
+
+	const onChangeColumnWidth = ( val ) => {
+		setAttributes( { columnWidth: Number(val) })
+	}
+
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody>
+				<PanelBody title="Multi column setting">
 					<RangeControl
 						label="Number of Columns"
 						value={ columnCount }
-						onChange={ onChangeColumnCount }
+						onChange={ ( val ) => setAttributes( { columnCount: val } ) }
 						min={ 2 }
 						max={ 6 }
 					/>
-					<TextControl
-						label="Column Gap(1 - 3rem)"
+					<SelectControl
+						label="Column Gap"
 						value={ columnGap }
-						onChange={ onChangeColumnGap }
+						onChange={ ( val ) => setAttributes( { columnGap: val } ) }
+						options={[
+							{ label: '1rem', value: '1rem' },
+							{ label: '2rem', value: '2rem' },
+							{ label: '3rem', value: '3rem' },
+							{ label: '10px', value: '10px' },
+							{ label: '20px', value: '20px' },
+							{ label: '30px', value: '30px' }
+						]}	
 					/>
+					<NumberControl
+						label="Column Width"
+						value={ columnWidth }
+						onChange={ onChangeColumnWidth }
+						min={ 100 }
+						max={ 500 }
+						step={ 10 }
+					/>
+				</PanelBody>
+				<PanelBody title="Column Separator" initialOpen={false}>
+					<NumberControl
+						label="Separator Width"
+						value={ columnRuleWidth }
+						onChange={ ( val ) => setAttributes( { columnRuleWidth: Number( val ) } ) }
+						min={ 1 }
+						max={ 5 }
+						step={ 1 }
+					/>
+					<SelectControl
+						label="Separator Style"
+						value={ columnRuleStyle }
+						onChange={ ( val ) => setAttributes( { columnRuleStyle: val } ) }
+						options={[
+							{ label: 'None', value: 'none' },
+							{ label: 'Double', value: 'double' },
+							{ label: 'Groove', value: 'groove' },
+							{ label: 'Ridge', value: 'ridge' },
+							{ label: 'Solid', value: 'solid' },
+							{ label: 'Dashed', value: 'dashed' },
+							{ label: 'Dotted', value: 'dotted' }
+						]}	
+					/>
+					<PanelColorSettings
+					title="Separator Color Settings"
+					colorSettings={[
+						{
+							label:"Separator Color",
+							value: columnRuleColor,
+							onChange: (val) => { setAttributes( { columnRuleColor: val } ) },
+						}
+					]}
+				></PanelColorSettings>
 				</PanelBody>
 			</InspectorControls>
 			<RichText
 				{ ...useBlockProps( { style: columnStyles } ) }
 				tagName="div"
-				onChange={ onChangeContent }
+				onChange={ ( val ) => { setAttributes( { content: val } ) } }
 				value={ attributes.content }
 				placeholder="Enter some text here..."
 			/>
