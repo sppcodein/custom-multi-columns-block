@@ -5,7 +5,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 	
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -28,10 +28,8 @@ export default function save({ attributes }) {
         columnRuleStyle: columnRuleStyle
     };
 	return (
-		<RichText.Content
-            { ...useBlockProps.save( { style: columnStyles } ) }
-            tagName="div"
-            value={ attributes.content }
-        />
+		<div { ...useBlockProps.save( { style: columnStyles } ) }>
+			<InnerBlocks.Content />
+		</div>
 	);
 }

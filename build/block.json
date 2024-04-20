@@ -22,11 +22,6 @@
   "style": "file:./style-index.css",
   "viewScript": "file:./view.js",
   "attributes": {
-    "content": {
-      "type": "string",
-      "source": "html",
-      "selector": "div"
-    },
     "style": {
       "type": "object",
       "default": {

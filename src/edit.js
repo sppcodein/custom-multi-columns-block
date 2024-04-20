@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, RichText, InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
+import { useBlockProps, InnerBlocks, InspectorControls, PanelColorSettings } from "@wordpress/block-editor";
 import { TextControl, RangeControl, PanelBody, SelectControl } from "@wordpress/components";
 import NumberControl from './components/number-control';
 
@@ -42,6 +42,17 @@ export default function Edit( { attributes, setAttributes } ) {
 		columnRuleStyle: columnRuleStyle,
 		columnRuleColor: columnRuleColor
  	};  //passing custom attributes with useBlockProps hook
+	const ALLOWED_BLOCKS = ['core/heading', 'core/paragraph', 'core/image', 'core/pullquote', 'core/spacer'];
+	const TEMPLATE_PARAGRAPHS = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
+	const MC_TEMPLATE = [
+		['core/heading', { level: 2, placeholder: 'Heading...' }],
+		['core/image', { placeholder: 'Image...' }],
+		['core/heading', { level: 4, placeholder: 'Sub Heading...' }],
+		['core/paragraph', { placeholder: TEMPLATE_PARAGRAPHS }],
+		['core/spacer', { height: '100px' }],
+		['core/pullquote'],
+		
+	];
 
 	const onChangeColumnWidth = ( val ) => {
 		setAttributes( { columnWidth: Number(val) })
@@ -115,13 +126,9 @@ export default function Edit( { attributes, setAttributes } ) {
 				></PanelColorSettings>
 				</PanelBody>
 			</InspectorControls>
-			<RichText
-				{ ...useBlockProps( { style: columnStyles } ) }
-				tagName="div"
-				onChange={ ( val ) => { setAttributes( { content: val } ) } }
-				value={ attributes.content }
-				placeholder="Enter some text here..."
-			/>
+			<div { ...useBlockProps( { style: columnStyles } ) }>
+				<InnerBlocks allowedBlocks = { ALLOWED_BLOCKS } template = { MC_TEMPLATE }/>	
+			</div>
 		</>
 	);
 }
