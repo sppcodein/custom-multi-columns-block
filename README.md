@@ -12,7 +12,7 @@ This plugin allows you to create custom Gutenberg multi-column blocks. These blo
 
 ## Installation
 
-1. Download the plugin from the source.
+1. Download the plugin zip file from the source.
 2. Navigate to your WordPress admin panel.
 3. Go to 'Plugins' > 'Add New' > 'Upload Plugin'.
 4. Choose the downloaded plugin file and click 'Install Now'.

@@ -7,14 +7,40 @@
   "category": "design",
   "icon": "table-col-after",
   "description": "Example block scaffolded with Create Block tool.",
-  "example": {},
+  "example": {
+    "innerBlocks": [
+      {
+        "name": "core/heading",
+        "attributes": {
+          "level": 2,
+          "content": "Heading..."
+        }
+      },
+      {
+        "name": "core/paragraph",
+        "attributes": {
+          "content": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
+        }
+      }
+    ],
+    "attributes": {
+      "columnCount": 3,
+      "columnWidth": 80
+    },
+    "viewportWidth": 720
+  },
   "supports": {
     "html": false,
     "color": {},
     "spacing": {
       "margin": true,
       "padding": true
-    }
+    },
+    "align": [
+      "wide",
+      "center",
+      "full"
+    ]
   },
   "textdomain": "multi-columns",
   "editorScript": "file:./index.js",
@@ -68,6 +94,50 @@
     "columnRuleColor": {
       "type": "string",
       "default": "#FFFFFF"
+    },
+    "dropCapColor": {
+      "type": "string",
+      "default": "#FFFFFF"
+    },
+    "dropCapSize": {
+      "type": "object",
+      "default": {
+        "size": "small",
+        "fontSize": "3.8rem",
+        "lineHeight": "3.5rem"
+      }
+    },
+    "boxShadowType": {
+      "type": "object",
+      "default": {
+        "effect": "light",
+        "Values": "12px 12px 2px 1px rgba(0, 0, 255, .2)"
+      }
     }
-  }
+  },
+  "keywords": [
+    "newspaper",
+    "columns",
+    "news",
+    "text",
+    "flow"
+  ],
+  "parent": [
+    "core/post-content"
+  ],
+  "styles": [
+    {
+      "name": "default",
+      "label": "Default",
+      "isDefault": true
+    },
+    {
+      "name": "drop-cap",
+      "label": "Drop-Cap"
+    },
+    {
+      "name": "box-shadow",
+      "label": "Box shadow"
+    }
+  ]
 }
