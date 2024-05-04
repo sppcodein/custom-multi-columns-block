@@ -1,0 +1,27 @@
+{
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "meta": {
+        "title": "Multi column custom gutenberg block",
+        "author": "S P Pramodh",
+        "description": "A preview of the multi-column custom Gutenberg block plugin.",
+        "categories": [
+            "plugins"
+        ]
+    },
+    "steps": [
+        {
+            "step": "login"
+        },
+        {
+            "step": "installPlugin",
+            "pluginZipFile": {
+                "resource": "url",
+                "url": "https://raw.githubusercontent.com/sppcodein/custom-multi-columns-block/main/multi-columns.zip"
+            },
+            "options": {
+                "activate": true
+            }
+        }
+    ],
+    "landingPage": "/wp-admin/post.php"
+}

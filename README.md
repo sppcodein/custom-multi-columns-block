@@ -1,8 +1,13 @@
 # Gutenberg Multi-Column Block Plugin
 
+[![Playground Preview Link](https://img.shields.io/wordpress/plugin/v/block-visibility?logo=wordpress&logoColor=%23fff&label=Playground%20Demo&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/sppcodein/custom-multi-columns-block/main/blueprint.json)
+
 ## Overview
 
 This plugin allows you to create custom Gutenberg multi-column blocks. These blocks can contain text, block quotes, and images, similar to a newspaper column layout. 
+
+
+![multi-column-preview](https://github.com/sppcodein/custom-multi-columns-block/assets/44876897/1efd1d4e-69c0-436c-bbb7-f1e35500512a)
 
 ## Benefits
 
